@@ -27,16 +27,22 @@ module Mongo
       # The ping command.
       #
       # @since 2.1.0
+      #
+      # @deprecated No longer necessary with Server Selection specification.
       PING = { :ping => 1 }.freeze
 
       # Ping message.
       #
       # @since 2.1.0
+      #
+      # @deprecated No longer necessary with Server Selection specification.
       PING_MESSAGE = Protocol::Query.new(Database::ADMIN, Database::COMMAND, PING, :limit => -1)
 
       # The ping message as raw bytes.
       #
       # @since 2.1.0
+      #
+      # @deprecated No longer necessary with Server Selection specification.
       PING_BYTES = PING_MESSAGE.serialize.to_s.freeze
 
       def_delegators :@server,
@@ -148,6 +154,8 @@ module Mongo
       # @return [ true, false ] If the server is accepting connections.
       #
       # @since 2.1.0
+      #
+      # @deprecated No longer necessary with Server Selection specification.
       def ping
         ensure_connected do |socket|
           socket.write(PING_BYTES)

@@ -135,7 +135,7 @@ module Mongo
           cmd[:readConcern] = collection.read_concern if collection.read_concern
           preference = ServerSelector.get(opts[:read] || read)
           read_with_retry do
-            server = preference.select_server(cluster, false)
+            server = preference.select_server(cluster)
             apply_collation!(cmd, server, opts)
             Operation::Commands::Command.new({
                                                :selector => cmd,
@@ -171,7 +171,7 @@ module Mongo
           cmd[:readConcern] = collection.read_concern if collection.read_concern
           preference = ServerSelector.get(opts[:read] || read)
           read_with_retry do
-            server = preference.select_server(cluster, false)
+            server = preference.select_server(cluster)
             apply_collation!(cmd, server, opts)
             Operation::Commands::Command.new({
                                                :selector => cmd,
@@ -462,7 +462,7 @@ module Mongo
         end
 
         def parallel_scan(cursor_count, options = {})
-          server = read.select_server(cluster, false)
+          server = read.select_server(cluster)
           cmd = Operation::Commands::ParallelScan.new({
                   :coll_name => collection.name,
                   :db_name => database.name,
